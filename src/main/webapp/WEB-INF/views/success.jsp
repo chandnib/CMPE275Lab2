@@ -1,5 +1,5 @@
 <html>
-<head><title>Save User Data</title></head>
+<head><title>Profile Data Saved</title></head>
 <body>
   Hello ${userName}
   <br/>Data saved.
