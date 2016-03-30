@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import lab2.dao.IProfileDoa;
 import lab2.dao.ProfileDao;
 import lab2.persistence.Profile;
 
@@ -14,7 +16,7 @@ import lab2.persistence.Profile;
 public class ProfileController {
 	
 	@Autowired
-	private ProfileDao profileDoa;
+	private IProfileDoa profileDoa;
 
 	@RequestMapping
 	public ModelAndView save(ModelAndView modelAndView) {

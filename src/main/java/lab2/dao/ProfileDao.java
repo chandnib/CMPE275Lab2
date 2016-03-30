@@ -8,7 +8,7 @@ import lab2.persistence.Profile;
 
 @Repository
 @Transactional(readOnly = false)
-public class ProfileDao{
+public class ProfileDao implements IProfileDoa{
 	
   @PersistenceContext	
   EntityManager entityManager;	
