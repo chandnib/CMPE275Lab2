@@ -1,0 +1,7 @@
+lab2\controller\UserController.class
+lab2\dao\UserDao.class
+lab2\config\JPAConfigOne.class
+lab2\persistence\User.class
+lab2\config\AppConfig.class
+lab2\config\WebAppInitializer.class
+lab2\config\JPAConfigTwo.class
