@@ -19,7 +19,14 @@ public class ProfileController {
 	private IProfileDoa profileDoa;
 
 	@RequestMapping
-	public ModelAndView save(ModelAndView modelAndView) {
+	public ModelAndView profileFormView(@RequestParam(value = "brief", defaultValue = "false") String brief,ModelAndView modelAndView) {
+		System.out.println("brief == > " + brief);
+		modelAndView.setViewName("profileForm");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/save", method = RequestMethod.GET)
+	public ModelAndView profileFormRedirect(ModelAndView modelAndView) {
 		modelAndView.setViewName("profileForm");
 		return modelAndView;
 	}
