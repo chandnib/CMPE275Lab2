@@ -10,7 +10,8 @@ import javax.persistence.Table;
 
 @Table(name="profile")
 @Entity
-public class Profile implements Serializable {
+public class Profile implements Serializable
+{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -37,11 +38,11 @@ public class Profile implements Serializable {
 	@Column(name="about_me")
 	private String about_me;
 	
-	public Profile(){
-	}
+	public Profile(){}
 
 	public Profile(String first_name, String last_name, String email, String address, String organization,
-			String about_me) {
+			String about_me)
+	{
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.email = email;
@@ -50,59 +51,73 @@ public class Profile implements Serializable {
 		this.about_me = about_me;
 	}
 
-	public int getId() {
+	public int getId() 
+	{
 		return id;
 	}
 
-	public String getFirst_name() {
+	public String getFirst_name() 
+	{
 		return first_name;
 	}
 
-	public String getLast_name() {
+	public String getLast_name() 
+	{
 		return last_name;
 	}
 
-	public String getEmail() {
+	public String getEmail() 
+	{
 		return email;
 	}
 
-	public String getAddress() {
+	public String getAddress() 
+	{
 		return address;
 	}
 
-	public String getOrganization() {
+	public String getOrganization() 
+	{
 		return organization;
 	}
 
-	public String getAbout_me() {
+	public String getAbout_me() 
+	{
 		return about_me;
 	}
 
-	public void setId(int id) {
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
 
-	public void setFirst_name(String first_name) {
+	public void setFirst_name(String first_name)
+	{
 		this.first_name = first_name;
 	}
 
-	public void setLast_name(String last_name) {
+	public void setLast_name(String last_name) 
+	{
 		this.last_name = last_name;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) 
+	{
 		this.email = email;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(String address) 
+	{
 		this.address = address;
 	}
 
-	public void setOrganization(String organization) {
+	public void setOrganization(String organization) 
+	{
 		this.organization = organization;
 	}
 
-	public void setAbout_me(String about_me) {
+	public void setAbout_me(String about_me) 
+	{
 		this.about_me = about_me;
 	}
 	
