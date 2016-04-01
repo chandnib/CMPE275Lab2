@@ -15,117 +15,79 @@ import lab2.persistence.Profile;
 
 @Controller
 @RequestMapping("/profile")
-public class ProfileController
-{
+public class ProfileController {
 
 	@Autowired
 	private IProfileDoa profileDoa;
-	
-	//Working
-	@RequestMapping( method = RequestMethod.GET)
-	public ModelAndView profileFormRedirect(ModelAndView modelAndView)
-	{
+
+	// Working
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView profileFormRedirect(ModelAndView modelAndView) {
 		modelAndView.setViewName("profileForm");
 		return modelAndView;
 	}
-	
-	//Working
+
+	// Working
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@RequestParam(value = "firstName", required = false) String firstName,
-			@RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "address", required = false) String address, @RequestParam(value = "organization", required = false) String organization,
-			@RequestParam(value = "aboutme", required = false) String aboutme, ModelAndView modelAndView)
-	{
-		Profile user = new Profile(firstName, lastName, email, address, organization, aboutme);
-		profileDoa.saveUserDetail(user);
-		modelAndView.addObject("userName", firstName + " " + lastName);
-		modelAndView.setViewName("success");
-		return modelAndView;
+			@RequestParam(value = "lastName", required = false) String lastName,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "address", required = false) String address,
+			@RequestParam(value = "organization", required = false) String organization,
+			@RequestParam(value = "aboutme", required = false) String aboutme, ModelAndView modelAndView) {
+		try {
+			Profile user = new Profile(firstName, lastName, email, address, organization, aboutme);
+			int profileId = profileDoa.saveUserDetail(user);
+			return new ModelAndView("redirect:/profile/" + profileId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelAndView.setViewName("error");
+			modelAndView.addObject("message",
+					"500 Internal Server Error : There was an error Processing your Request!!");
+			return modelAndView;
+		}
 	}
 
 	@RequestMapping(value = "{userId}", method = RequestMethod.GET)
 	public ModelAndView showProfile(@PathVariable("userId") int id,
-			@RequestParam(value = "brief", required = false) String brief, ModelAndView modelAndView)
-	{
-		System.out.println("brief"+brief);
-		
-		if (brief.equals("true"))
-		{ 
-			
-			System.out.println("brief inside MVC call");
-			Profile user = profileDoa.getProfile(id);
-			if (user != null)
-			{
-				System.out.println("brief inside MVC call 2");
+			@RequestParam(value = "brief", required = false, defaultValue = "false") String brief,
+			ModelAndView modelAndView) {
+		Profile user;
+		try {
+			user = profileDoa.getProfile(id);
+			if (user != null) {
 				modelAndView.addObject("profile", user);
-				modelAndView.setViewName("profiletext");
+				if (brief.equals("true")) {
+					modelAndView.setViewName("profiletext");
+				} else {
+					modelAndView.setViewName("profile");
+				}
+			} else {
+				throw new Exception();
 			}
-			else
-			{
-				modelAndView.setViewName("error");
-				modelAndView.addObject("message", "404 Requested id " + id + " not found");
-			}
-			return modelAndView;
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelAndView.setViewName("error");
+			modelAndView.addObject("message", "404 Requested id " + id + " not found");
 		}
-		else
-		{
-			Profile user = profileDoa.getProfile(id);
-			if (user != null)
-			{
-				modelAndView.addObject("profile", user);
-				modelAndView.setViewName("profile");
-			}
-			else
-			{
-				modelAndView.setViewName("error");
-				modelAndView.addObject("message", "404 Requested id " + id + " not found");
-			}
-			return modelAndView;
-		}
+		return modelAndView;
 	}
 
 	@RequestMapping(value = "{userId}", method = RequestMethod.DELETE)
-	public String deleteProfile(@PathVariable("userId") int id, ModelAndView modelAndView)
-	{
-		boolean res = profileDoa.deleteProfile(id);
-		if (res == true)
-		{
-			return "redirect:/profile";
-		}
-		else
-		{
+	public String deleteProfile(@PathVariable("userId") int id, ModelAndView modelAndView) {
+		boolean res;
+		try {
+			res = profileDoa.deleteProfile(id);
+			if (res == true) {
+				return "redirect:/profile";
+			} else {
+				return "redirect:/error";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/error";
-			/*
-			 * modelAndView.setViewName("error");
-			 * modelAndView.addObject("message","404 Requested id " +id+
-			 * " not found");
-			 */
 		}
-
 	}
-
-	/*
-	 * @RequestMapping(value="{userId}",method = RequestMethod.POST) public
-	 * ModelAndView updateProfile(@PathVariable("userId") int id,
-	 * 
-	 * @RequestParam(value = "first_name",required=false) String firstName,
-	 * 
-	 * @RequestParam(value = "last_name",required=false) String lastName,
-	 * 
-	 * @RequestParam(value = "email",required=false) String email,
-	 * 
-	 * @RequestParam(value = "address",required=false) String address,
-	 * 
-	 * @RequestParam(value = "organization",required=false) String organization,
-	 * 
-	 * @RequestParam(value = "about_me",required=false) String aboutme,
-	 * ModelAndView modelAndView) { Profile user = new Profile(firstName,
-	 * lastName, email, address, organization, aboutme); Profile updatedUser =
-	 * profileDoa.updateProfile(id, user);
-	 * modelAndView.addObject("profile",updatedUser);
-	 * modelAndView.setViewName("profile"); return modelAndView; }
-	 */
 
 	@RequestMapping(value = "{userId}", method = RequestMethod.POST)
 	public @ResponseBody Profile updateProfile(@PathVariable("userId") int id,
@@ -134,11 +96,15 @@ public class ProfileController
 			@RequestParam(value = "email", required = false) String email,
 			@RequestParam(value = "address", required = false) String address,
 			@RequestParam(value = "organization", required = false) String organization,
-			@RequestParam(value = "about_me", required = false) String aboutme, ModelAndView modelAndView)
-	{
-		Profile user = new Profile(firstName, lastName, email, address, organization, aboutme);
-		Profile updatedUser = profileDoa.updateProfile(id, user);
-
+			@RequestParam(value = "about_me", required = false) String aboutme, ModelAndView modelAndView) {
+		Profile user = null;
+		Profile updatedUser = null;
+		try {
+			user = new Profile(firstName, lastName, email, address, organization, aboutme);
+			updatedUser = profileDoa.updateProfile(id, user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return updatedUser;
 	}
 

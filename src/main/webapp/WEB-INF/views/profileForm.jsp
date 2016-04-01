@@ -20,44 +20,47 @@
 	crossorigin="anonymous"></script>
 </head>
 <body bgcolor="#E6E6FA">
-	<div class="container-fluid"></div>
-	<div class="row">
-		<div class="col-xs-3"></div>
-		<div class="col-xs-6">
-			<h2 style="text-align: center;">Create New Profile</h2>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<h2 style="text-align: center;">Create New Profile</h2>
 
-			<form action="profile/save" method="post">
-				<div class="form-group">
-					<label for="exampleInputName1">First Name</label> <input
-						type="text" class="form-control" name="firstName"
-						placeholder="First Name">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputName2">Last Name</label> <input type="text"
-						class="form-control" name="lastName" placeholder="Last Name">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail12">Email</label> <input type="email"
-						class="form-control" name="email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail12">Address</label> <input type="text"
-						class="form-control" name="address" placeholder="Address">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail12">Organization</label> <input
-						type="text" class="form-control" name="organization"
-						placeholder="organization">
-				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail12">About Me</label> <input
-						type="text" class="form-control" name="aboutme"
-						placeholder="aboutme">
-				</div>
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-			</form>
+				<form action="profile/save" method="post">
+					<div class="form-group">
+						<label for="exampleInputName1">First Name</label> <input
+							type="text" class="form-control" name="firstName"
+							placeholder="First Name">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputName2">Last Name</label> <input
+							type="text" class="form-control" name="lastName"
+							placeholder="Last Name">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail12">Email</label> <input type="email"
+							class="form-control" name="email" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail12">Address</label> <input
+							type="text" class="form-control" name="address"
+							placeholder="Address">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail12">Organization</label> <input
+							type="text" class="form-control" name="organization"
+							placeholder="organization">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail12">About Me</label> <input
+							type="text" class="form-control" name="aboutme"
+							placeholder="aboutme">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+				</form>
+			</div>
+			<div class="col-xs-3"></div>
 		</div>
-		<div class="col-xs-3"></div>
 	</div>
 </body>
 </html>

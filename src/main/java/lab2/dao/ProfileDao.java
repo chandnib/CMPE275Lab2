@@ -14,9 +14,11 @@ public class ProfileDao implements IProfileDoa
 	@PersistenceContext
 	EntityManager entityManager;
 
-	public void saveUserDetail(Profile profile)
+	public int saveUserDetail(Profile profile)
 	{
 		entityManager.persist(profile);
+		entityManager.flush();
+		return profile.getId();
 	}
 
 	@Override
