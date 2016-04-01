@@ -87,6 +87,7 @@
 					$('#email').val(data.email);
 					$('#address').val(data.address);
 					$('#organization').val(data.organization);
+					$('#about_me').val(data.about_me);
 				});
 			});
 		});
