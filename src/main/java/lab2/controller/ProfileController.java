@@ -70,25 +70,24 @@ public class ProfileController {
 	}
 	
 	@RequestMapping(value="{userId}",method = RequestMethod.DELETE)
-	public @ResponseBody boolean deleteProfile(@PathVariable("userId") int id,ModelAndView modelAndView)
+	public String  deleteProfile(@PathVariable("userId") int id,ModelAndView modelAndView)
 	{
 		boolean res = profileDoa.deleteProfile(id);
-		return res;
-		/*if(res==true) 
+		if(res==true) 
 		{
 			return "redirect:/profile" ;
 		}
 		else
 		{
 			return "redirect:/error" ;
-			modelAndView.setViewName("error");
-	    	modelAndView.addObject("message","404 Requested id " +id+ " not found");
-		}*/
+			/*modelAndView.setViewName("error");
+	    	modelAndView.addObject("message","404 Requested id " +id+ " not found");*/
+		}
 		
 		
 	}
 	
-	@RequestMapping(value="{userId}",method = RequestMethod.POST)
+	/*@RequestMapping(value="{userId}",method = RequestMethod.POST)
 	public ModelAndView updateProfile(@PathVariable("userId") int id,
 			@RequestParam(value = "first_name",required=false) String firstName,
 			@RequestParam(value = "last_name",required=false) String lastName,
@@ -103,6 +102,23 @@ public class ProfileController {
 		 modelAndView.addObject("profile",updatedUser);
 	     modelAndView.setViewName("profile");
 		return modelAndView;
+	}
+	*/
+	
+	@RequestMapping(value="{userId}",method = RequestMethod.POST)
+	public @ResponseBody Profile updateProfile(@PathVariable("userId") int id,
+			@RequestParam(value = "first_name",required=false) String firstName,
+			@RequestParam(value = "last_name",required=false) String lastName,
+			@RequestParam(value = "email",required=false) String email,
+			@RequestParam(value = "address",required=false) String address,
+			@RequestParam(value = "organization",required=false) String organization,
+			@RequestParam(value = "about_me",required=false) String aboutme,
+			ModelAndView modelAndView)
+	{
+		Profile user = new Profile(firstName, lastName, email, address, organization, aboutme);
+		Profile updatedUser = profileDoa.updateProfile(id, user);
+	
+		return updatedUser;
 	}
 	
 	
