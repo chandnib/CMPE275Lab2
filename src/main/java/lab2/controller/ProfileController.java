@@ -52,7 +52,7 @@ public class ProfileController {
 	public ModelAndView showProfile(@PathVariable("userId") int id,
 			@RequestParam(value = "brief", required = false, defaultValue = "false") String brief,
 			ModelAndView modelAndView) {
-		Profile user;
+		Profile user =  null;
 		try {
 			user = profileDoa.getProfile(id);
 			if (user != null) {
@@ -68,7 +68,7 @@ public class ProfileController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelAndView.setViewName("error");
-			modelAndView.addObject("message", "404 Requested id " + id + " not found");
+			modelAndView.addObject("message", "Sorry, the requested user with ID " + id + " does not exist");
 		}
 		return modelAndView;
 	}
