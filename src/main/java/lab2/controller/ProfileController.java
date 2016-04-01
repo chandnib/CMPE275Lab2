@@ -20,19 +20,21 @@ public class ProfileController
 
 	@Autowired
 	private IProfileDoa profileDoa;
-
+	
+	//Working
 	@RequestMapping( method = RequestMethod.GET)
 	public ModelAndView profileFormRedirect(ModelAndView modelAndView)
 	{
 		modelAndView.setViewName("profileForm");
 		return modelAndView;
 	}
-
+	
+	//Working
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@RequestParam(value = "firstName") String firstName,
-			@RequestParam(value = "lastName") String lastName, @RequestParam(value = "email") String email,
-			@RequestParam(value = "address") String address, @RequestParam(value = "organization") String organization,
-			@RequestParam(value = "aboutme") String aboutme, ModelAndView modelAndView)
+	public ModelAndView save(@RequestParam(value = "firstName", required = false) String firstName,
+			@RequestParam(value = "lastName", required = false) String lastName, @RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "address", required = false) String address, @RequestParam(value = "organization", required = false) String organization,
+			@RequestParam(value = "aboutme", required = false) String aboutme, ModelAndView modelAndView)
 	{
 		Profile user = new Profile(firstName, lastName, email, address, organization, aboutme);
 		profileDoa.saveUserDetail(user);
