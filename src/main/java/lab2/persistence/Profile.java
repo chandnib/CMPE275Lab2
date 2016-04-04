@@ -13,6 +13,12 @@ import javax.persistence.Table;
 public class Profile implements Serializable
 {
 	
+	@Override
+	public boolean equals(Object obj) {
+		Profile prof = (Profile) obj;
+		return this.first_name.equals(prof.first_name)&&this.email.equals(prof.email);
+	}
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id

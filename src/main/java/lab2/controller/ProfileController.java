@@ -13,21 +13,47 @@ import lab2.dao.IProfileDoa;
 import lab2.dao.ProfileDao;
 import lab2.persistence.Profile;
 
+/**
+ * This is a controller class for spring MVC and handles get, post, delete fro
+ * save, update, delete profile calls
+ * 
+ * @author : Group Lab
+ * @version : 19
+ */
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
-
+	/**
+	 * Data Access Object for CRUD Operations
+	 */
 	@Autowired
 	private IProfileDoa profileDoa;
 
-	// Working
+	/**
+	 * Returns the profile creation view HTTP Get call
+	 * 
+	 * @param modelAndView
+	 * @return modelAndView
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView profileFormRedirect(ModelAndView modelAndView) {
 		modelAndView.setViewName("profileForm");
 		return modelAndView;
 	}
 
-	// Working
+	/**
+	 * The method saves the profile details into the database by sending data
+	 * via HTTP post call
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param address
+	 * @param organization
+	 * @param aboutme
+	 * @param modelAndView
+	 * @return modelAndView
+	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@RequestParam(value = "firstName", required = false) String firstName,
 			@RequestParam(value = "lastName", required = false) String lastName,
@@ -48,11 +74,21 @@ public class ProfileController {
 		}
 	}
 
+	/**
+	 * This method fetches the profile data via HTTP get call and renders in an
+	 * editable HTML and text mode depending on the value of brief variable.
+	 * true signifies text mode
+	 * 
+	 * @param id
+	 * @param brief
+	 * @param modelAndView
+	 * @return modelAndView
+	 */
 	@RequestMapping(value = "{userId}", method = RequestMethod.GET)
 	public ModelAndView showProfile(@PathVariable("userId") int id,
 			@RequestParam(value = "brief", required = false, defaultValue = "false") String brief,
 			ModelAndView modelAndView) {
-		Profile user =  null;
+		Profile user = null;
 		try {
 			user = profileDoa.getProfile(id);
 			if (user != null) {
@@ -73,6 +109,14 @@ public class ProfileController {
 		return modelAndView;
 	}
 
+	/**
+	 * This method deletes the profile being displayed currently via an HTTP
+	 * Delete call
+	 * 
+	 * @param id
+	 * @param modelAndView
+	 * @return string
+	 */
 	@RequestMapping(value = "{userId}", method = RequestMethod.DELETE)
 	public String deleteProfile(@PathVariable("userId") int id, ModelAndView modelAndView) {
 		boolean res;
@@ -89,6 +133,19 @@ public class ProfileController {
 		}
 	}
 
+	/**
+	 * This method updates the profile values via HTTP Post call
+	 * 
+	 * @param id
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param address
+	 * @param organization
+	 * @param aboutme
+	 * @param modelAndView
+	 * @return profile
+	 */
 	@RequestMapping(value = "{userId}", method = RequestMethod.POST)
 	public @ResponseBody Profile updateProfile(@PathVariable("userId") int id,
 			@RequestParam(value = "first_name", required = false) String firstName,

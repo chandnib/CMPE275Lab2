@@ -7,6 +7,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * This is a java based configuration file for persistence using JPA It creates
+ * an EntityFactoryManager bean and datasource by using dependency injection
+ *
+ * @author : Group Lab
+ * @version : 19
+ */
+
 @Configuration
 @ComponentScan("lab2")
 @EnableTransactionManagement
@@ -18,6 +26,11 @@ public class JPAEntityManagerConfig {
 		return jtManager;
 	}
 
+	/**
+	 * This method returns a factory bean which creates a JPA
+	 * 
+	 * @return LocalEntityManagerFactoryBean
+	 */
 	@Bean
 	public LocalEntityManagerFactoryBean getEntityManagerFactoryBean() {
 		LocalEntityManagerFactoryBean localEntityManagerFactory = new LocalEntityManagerFactoryBean();
